@@ -3,12 +3,20 @@
 var articles = [];
 
 function Article (rawDataObj) {
+  this.title = rawDataObj.title;
+  this.category = rawDataObj.category;
+  this.author = rawDataObj.author;
+  this.authorUrl = rawDataObj.authorUrl;
+  this.publishedOn = rawDataObj.publishedOn;
+  this.body = rawDataObj.body;
   // TODO: Use the JS object passed in to complete this constructor function:
   // Save ALL the properties of `rawDataObj` into `this`
 }
 
 Article.prototype.toHtml = function() {
   var $newArticle = $('article.template').clone();
+  $newArticle.removeClass('template');
+
   /* TODO: This cloned article still has a class of template.
   However, in our modules.css stylesheet, we gave all elements
   with a class of template a display of none. Let's make
@@ -28,6 +36,9 @@ Article.prototype.toHtml = function() {
     5. publication date. */
 
     $newArticle.find('.byline a').html(this.author);
+    $newArticle.find('.byline a').attr('href', this.authorUrl);
+    $newArticle.find('h1').html(this.title);
+    $newArticle.find('.article-body').html(this.body);
 
   // Display the date as a relative number of 'days ago'
   $newArticle.find('time').html('about ' + parseInt((new Date() - new Date(this.publishedOn))/60/60/24/1000) + ' days ago');
