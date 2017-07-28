@@ -5,6 +5,12 @@ var articles = [];
 function Article (rawDataObj) {
   // TODO: Use the JS object passed in to complete this constructor function:
   // Save ALL the properties of `rawDataObj` into `this`
+  this.author = rawDataObj.author;
+  this.authorUrl = rawDataObj.authorUrl;
+  this.title = rawDataObj.title;
+  this.category = rawDataObj.category;
+  this.body = rawDataObj.body;
+  this.publishedOn = rawDataObj.publishedOn;
 }
 
 Article.prototype.toHtml = function() {
@@ -13,7 +19,8 @@ Article.prototype.toHtml = function() {
   However, in our modules.css stylesheet, we gave all elements
   with a class of template a display of none. Let's make
   sure we're not accidentally hiding our cloned article! */
-
+  var $newArticle = $('article.template').clone();
+  $newArticle.removeClass('template');
   if (!this.publishedOn) $newArticle.addClass('draft');
   $newArticle.data('category', this.category);
 
@@ -28,12 +35,18 @@ Article.prototype.toHtml = function() {
     5. publication date. */
 
     $newArticle.find('.byline a').html(this.author);
-
+    $newArticle.find('.byline a').attr('href', this.authorUrl);
+    $newArticle.find('h1:first').html(this.title);
+    $newArticle.find('.article-body').html(this.body);
+    $newArticle.find('time[pubdate]').attr('datetime', this.publishedOn);
+    $newArticle.find('time[pubdate]').attr('title', this.publishedOn);
   // Display the date as a relative number of 'days ago'
   $newArticle.find('time').html('about ' + parseInt((new Date() - new Date(this.publishedOn))/60/60/24/1000) + ' days ago');
   $newArticle.append('<hr>');
   return $newArticle;
 };
+
+//This tool about 4 hours off and on to finish. First we started on the script tags and added the jquery script. Otherwise, the page would fail to load everything. Then we referenced all of the properties in the article constructor. Next, we removed the template class from article. The last part was the hardest. We used .find to find propertes for the article.
 
 rawData.sort(function(a,b) {
   // REVIEW: Take a look at this sort method; This may be the first time we've seen it.
