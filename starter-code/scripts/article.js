@@ -46,6 +46,8 @@ Article.prototype.toHtml = function() {
   return $newArticle;
 };
 
+//This tool about 4 hours off and on to finish. First we started on the script tags and added the jquery script. Otherwise, the page would fail to load everything. Then we referenced all of the properties in the article constructor. Next, we removed the template class from article. The last part was the hardest. We used .find to find propertes for the article.
+
 rawData.sort(function(a,b) {
   // REVIEW: Take a look at this sort method; This may be the first time we've seen it.
   return (new Date(b.publishedOn)) - (new Date(a.publishedOn));
