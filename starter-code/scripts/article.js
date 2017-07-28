@@ -11,6 +11,7 @@ function Article (rawDataObj) {
   this.authorUrl = 'url'
   this.publishedOn = 'publishedOn'
   this.body = 'body'
+  
 }
 
 Article.prototype.toHtml = function() {
